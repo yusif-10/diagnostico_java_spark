@@ -1,4 +1,4 @@
-# Examen Diagnostico JAVA to Big Data
+# Examen Diagnostico JAVA to Big Data v2
 **cuentas con 24 horas para resolver el ejercicio**
 
 
@@ -25,22 +25,29 @@
 
 1. La tabla de salida debe contener las siguientes columnas:
    `short_name, long_name, age, height_cm, weight_kg, nationality, club_name, overall, potential, team_position`
-2. Agregar una columna `player_cat` que responderá a la siguiente regla (rank over Window particionada por `nationality` y `team_position`
-   y ordenada por `overall`):
-    * **A** si el jugador es de los mejores 3 jugadores en su posición de su país.
-    * **B** si el jugador es de los mejores 5 jugadores en su posición de su país.
-    * **C** si el jugador es de los mejores 10 jugadores en su posición de su país.
-    * **D** para el resto de jugadores.
+   
+2. Agregar una columna `age_range` qué responderá a la siguiente regla:
+    * **A** si el jugador es menor de 23 años
+    * **B** si el jugador es mayor de 23 años y menor de 27 años
+    * **C** si el jugador es mayor de 27 años y menor de 32 años
+    * **D** si el jugador es mayor de 32 años
+    
+    ***pista** la función `org.apache.spark.sql.functions.when` podría ser de gran utilidad*
+3. Agregaremos una columna `rank_by_nationality_position` con la siguiente regla:
+    Para cada país (`nationality`) y posición(`team_position`) debemos ordenar a los jugadores por la columna `overall`
+    de forma descendente y colocarles un número generado por la función `row_number`
+     
+   ***pista** para resolver este ejercicio, mire el método de ejemplo exampleWindowFunction incluido en el código.*
+4. Agregaremos una columna `potential_vs_overall` cuyo valor estará definido por la siguiente regla:
+   
+   *`potential_vs_overall` = `potential`/`overall`*
+    
+5. Filtraremos de acuerdo a las columnas `age_range` y `rank_by_nationality_position` con las siguientes condiciones:
+    * Si `rank_by_nationality_position` es menor a **3**
+    * Si `age_range` es **B** o **C** y `potential_vs_overall` es superior a **1.15**
+    * Si `age_range` es **A** y `potential_vs_overall` es superior a **1.25**
+    * Si `age_range` es **D** y `rank_by_nationality_position` es menor a **5**
 
-   ***tip** para resolver este ejercicio, mire el método de ejemplo exampleWindowFunction incluido en el código.*
-3. Agregaremos una columna `potential_vs_overall` con la siguiente regla:
-    * Columna `potential` dividida por la columna `overall`
-4. Filtraremos de acuerdo a las columnas `player_cat` y `potential_vs_overall` con las siguientes condiciones:
-    * Si `player_cat` esta en los siguientes valores: **A**, **B**
-    * Si `player_cat` es **C** y `potential_vs_overall` es superior a **1.15**
-    * Si `player_cat` es **D** y `potential_vs_overall` es superior a **1.25**
-5. Agregar un parametro al archivo params que de ser 1 realice todos los pasos únicamente para los jugadores menores de 23 años 
-    y en caso de ser 0 que lo haga con todos los jugadores del dataset.
 6. Por favor escriba la tabla resultante de los pasos anteriores particionada por la columna `nationality`, la salida
    debe estar escrita en formato **parquet** y debe usarse el método `coalese(1)`
    para obtener solo un archivo por partición.
