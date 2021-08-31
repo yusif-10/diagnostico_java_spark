@@ -28,9 +28,9 @@
    
 2. Agregar una columna `age_range` qué responderá a la siguiente regla:
     * **A** si el jugador es menor de 23 años
-    * **B** si el jugador es mayor de 23 años y menor de 27 años
-    * **C** si el jugador es mayor de 27 años y menor de 32 años
-    * **D** si el jugador es mayor de 32 años
+    * **B** si el jugador es menor de 27 años
+    * **C** si el jugador es menor de 32 años
+    * **D** si el jugador tiene 32 años o más
     
     ***pista** la función `org.apache.spark.sql.functions.when` podría ser de gran utilidad*
 3. Agregaremos una columna `rank_by_nationality_position` con la siguiente regla:
