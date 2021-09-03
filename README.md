@@ -21,7 +21,7 @@
     que valide que se han filtrado correctamente los jugadores.
 * Modularice sú código lo suficiente de tal forma que cada método haga una sola cosa.
 * Hemos soñado con poder leer las rutas de entrada y salida desde un archivo de configuración, sería increible tener
-  uno! (leer el archivo params)
+  uno! (crear un archivo properties)
 
 ## Ejercicio
 
