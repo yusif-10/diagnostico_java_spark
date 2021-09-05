@@ -27,7 +27,7 @@ public class Transformer extends Writer {
         df = columnSelection(df);
 
         // for show 100 records after your transformations and show the Dataset schema
-        df.show(100, false);
+        //df.show(100, false);
         df.printSchema();
 
         // Uncomment when you want write your final output
@@ -38,6 +38,7 @@ public class Transformer extends Writer {
         return df.select(
                 shortName.column(),
                 overall.column(),
+
                 heightCm.column(),
                 teamPosition.column(),
                 catHeightByPosition.column()
